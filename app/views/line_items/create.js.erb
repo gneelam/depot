@@ -1,0 +1,8 @@
+$("#cart").html("<%=escape_javascript(render(@cart))%>")  
+<% if @cart.total_item == 1%>
+$("#cart").slideDown(1000)
+<% end %>
+<% if @cart.total_item == 0%>
+$("#cart").slideUp(1000)
+<% end %>
+$("#current_item").effect( "highlight",{color:'#88FF88',easing:'linear'},2000 )

@@ -1,0 +1,14 @@
+<p>Dear <b><%= @order.name %></b></p>
+
+<p>Your order has been shipped on <%=@order.ship_date%>.
+
+Your order has following items:</p>
+
+<table>
+	<th colspan="2">Quantity</th><th>Description</th>
+<% @order.line_items.each do |line_item| %>
+	<%=render :template => "line_items/_line_item_mail" , :locals => {:line_item => line_item} %>
+<% end %>	
+</table>
+<br/>
+

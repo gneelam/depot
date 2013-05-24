@@ -1,0 +1,14 @@
+<p>Dear <b><%= @order.name %></b></p>
+
+<p>Thank you for your recent order from Priyanks Store.
+
+Your order has following items:</p>
+
+<table>
+	<th colspan="2">Quantity</th><th>Description</th>
+<% @order.line_items.each do |line_item| %>
+	<%=render :template => "line_items/_line_item_mail" , :locals => {:line_item => line_item} %>
+<% end %>	
+</table>
+<br/>
+We will send you a saperate mail when your order ships.
