@@ -1,5 +1,7 @@
 require 'digest/sha2'
+
 class User < ActiveRecord::Base
+  after_destroy :ensure_an_admin_remains
   attr_accessible :hashed_password, :name, :salt, :password_confirmation, :password
   validates :name, :presence => true, :uniqueness => true
   validates :password, :confirmation => true
@@ -29,6 +31,12 @@ class User < ActiveRecord::Base
   	end	
   end
 
+  def ensure_an_admin_remains
+    if User.count.zero?
+      raise "cann't delete last user"
+     end 
+  end
+
   private 
 
   def password_must_be_present
@@ -38,5 +46,7 @@ class User < ActiveRecord::Base
   def generate_salt
   	self.salt = self.object_id.to_s + rand.to_s
   end
+
+  
 
 end
